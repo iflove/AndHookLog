@@ -1,0 +1,3 @@
+include ':HookLog'
+include ':app'
+rootProject.name = "Hook Log"
