@@ -9,6 +9,8 @@ import android.util.Log
 class LogUtils {
 
     companion object {
+        const val NO_DEUBG = 0
+
         @JvmStatic
         var baseLog: BaseLog = RawLog()
 
@@ -66,6 +68,35 @@ class LogUtils {
         fun e(tag: String?, msg: String?, tr: Throwable?) {
             baseLog.e(tag, msg, tr)
         }
+
+
+        @JvmStatic
+        fun isLoggable(tag: String, level: Int): Boolean {
+            return System.getProperty("log.tag.$tag", NO_DEUBG.toString()) == when (level) {
+                Log.VERBOSE -> "V"
+                Log.DEBUG -> "D"
+                Log.ERROR -> "E"
+                Log.INFO -> "I"
+                Log.WARN -> "W"
+                Log.ASSERT -> "A"
+                else -> NO_DEUBG
+            }
+        }
+
+        @JvmStatic
+        fun setLoggable(tag: String, level: Int) {
+            System.setProperty(
+                "log.tag.$tag", when (level) {
+                    Log.VERBOSE -> "V"
+                    Log.DEBUG -> "D"
+                    Log.ERROR -> "E"
+                    Log.INFO -> "I"
+                    Log.WARN -> "W"
+                    Log.ASSERT -> "A"
+                    else -> NO_DEUBG.toString()
+                }
+            )
+        }
     }
 
     private class RawLog : BaseLog {
@@ -90,21 +121,27 @@ class LogUtils {
         }
 
         override fun i(tag: String?, msg: String?, tr: Throwable?) {
+            Log.i(tag, msg, tr)
         }
 
         override fun w(tag: String?, msg: String) {
+            Log.w(tag, msg)
         }
 
         override fun w(tag: String?, msg: String?, tr: Throwable?) {
+            Log.w(tag, msg, tr)
         }
 
         override fun w(tag: String?, tr: Throwable?) {
+            Log.w(tag, tr)
         }
 
         override fun e(tag: String?, msg: String) {
+            Log.e(tag, msg)
         }
 
         override fun e(tag: String?, msg: String?, tr: Throwable?) {
+            Log.e(tag, msg, tr)
         }
     }
 

@@ -5,6 +5,6 @@ package com.androidz.hooklog;
  */
 class Main {
     public static void main(String[] args) {
-        LogUtils.d("xxa", String.format("%s,%s,%s,%s,%s,%s,%s", args));
+        LogUtils.d("xxa", String.format("%s,%s,%s", (Object[]) args));
     }
 }

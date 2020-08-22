@@ -1,3 +1,5 @@
+include ':mylibrary2'
+include ':mylibrary'
 include ':HookLog'
 include ':app'
 rootProject.name = "Hook Log"
